@@ -54,8 +54,9 @@ typedef struct {
 #define CHUNK_SHUTDOWN_COMPLETE 14
 
 struct packet_buffer_t {
-  unsigned char data[1024*64];
+  unsigned char data[1024*10];
   int ptr = 0;
+  int total;
 
   packet_buffer_t() {
     //memset(data, 0, sizeof(data));
