@@ -77,11 +77,12 @@ class connection_t
       buf->skip(2);
       uint16_t opt_len = htons(*((uint16_t*)buf->get()));
       buf->skip(2);
-  
+ printf("opt type=%d\n", opt_type); 
       if (opt_type == 7) {
         cookie_len = opt_len-4;
         memcpy(cookie, buf->get(), cookie_len);
       }
+      buf->skip(opt_len-4);
       len -= opt_len;
     }
   
@@ -234,9 +235,10 @@ int main()
   sctp_t sctp;
   sctp.init();
 
-  sctp.connect(1, 7777, "192.168.0.105");
-  sctp.connect(2, 7777, "192.168.0.105");
-  sctp.connect(3, 7777, "192.168.0.105");
+  sctp.connect(1, 7777, "osm03");
+  sctp.connect(2, 7777, "osm03");
+  sctp.connect(3, 7777, "osm03");
+  //sctp.connect(4, 7777, "osm03");
 
   sctp.read_loop();
 
